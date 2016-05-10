@@ -51,7 +51,7 @@ class NewHelloWorldForm extends React.Component {
     return (
       <form className="helloworld__new-form" onSubmit={this.handleNewHelloSubmit}>
         <div className="form-group">
-          <input type="text" className="form-control input-lg" maxLength="40"
+          <input type="text" className="form-control input-lg" maxLength="45"
               placeholder="Be the last one, type your name..."
               value={this.state.newName}
               onChange={this.handleNameChange} />

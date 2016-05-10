@@ -2,6 +2,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const path = require('path')
+const webpack = require('webpack');
 
 const SRC = path.resolve(__dirname, './client/src')
 const APP = path.resolve(__dirname, './client/app')
@@ -47,6 +48,16 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Basic React Project',
       template: SRC + '/index_html_template.ejs'
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': process.env.NODE_ENV === 'production' ? JSON.stringify('production') : undefined
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
     })
   ],
   postcss: [

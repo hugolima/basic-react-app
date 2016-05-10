@@ -31,7 +31,12 @@ class HelloWorldController {
     let hellosObject = readJsonFromStore()
     let lastId = hellosObject.last_id
 
+    if (!hello || !hello.name) {
+      return
+    }
+
     hello.id = lastId + 1
+    hello.name = hello.name.slice(0, 45)
     hellosObject.last_id = hello.id
     hellosObject.hellos.unshift(hello)
 
