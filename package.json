@@ -7,8 +7,9 @@
     "node": "6.0.0"
   },
   "scripts": {
-    "start": "node ./server/app.js | webpack -d --watch",
+    "start-dev": "node ./server/app.js | webpack -d --watch",
     "build": "NODE_ENV=production webpack -p",
+    "start": "npm run build && node ./server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -21,12 +22,7 @@
     "type": "git",
     "url": "git@github.com:hugolima/basic-react-app.git"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/mit-license.php"
-    }
-  ],
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.1",
     "express": "^4.13.4"
