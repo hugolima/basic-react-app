@@ -32,8 +32,8 @@ class HelloStore {
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
       data: JSON.stringify(hello),
-      success: (newlySavedHello) => {
-        success(newlySavedHello)
+      success: (newlyHello) => {
+        success(newlyHello)
       },
       error: (xhr, status, err) => {
         console.log('Error: ' + xhr + ' - ' + status + ' - ' + err)

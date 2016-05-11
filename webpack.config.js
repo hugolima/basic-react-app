@@ -7,6 +7,7 @@ const webpack = require('webpack');
 const SRC = path.resolve(__dirname, './client/src')
 const APP = path.resolve(__dirname, './client/app')
 const NODE_MODULE_PATH = path.resolve(__dirname, './node_modules')
+const SERVER_PATH = path.resolve(__dirname, './server')
 
 module.exports = {
   entry: SRC + '/index.js',
@@ -67,6 +68,9 @@ module.exports = {
   ],
   resolve: {
     extensions: ['', '.js', '.scss'],
-    root: [SRC]
+    root: [SRC],
+    alias: {
+      server: SERVER_PATH
+    }
   }
 }
