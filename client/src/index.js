@@ -1,6 +1,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import HelloWorldComponent from 'components/helloworld.js'
+import imgGitLogo from './images/GitHub_Logo.png'
 import 'stylesheets/base.scss'
 import 'jquery'
 import 'bootstrap-sass/assets/javascripts/bootstrap'
@@ -52,7 +53,7 @@ class App extends React.Component {
         <div className="header clearfix">
           <nav>
             <ul className="nav nav-pills pull-right">
-              <li role="presentation" className="active"><a href="#">Home</a></li>
+              <li role="presentation" className="active"><a href="/">Home</a></li>
             </ul>
           </nav>
           <h3 className="text-muted">Basic React Project - Hello World</h3>
@@ -61,7 +62,10 @@ class App extends React.Component {
         <HelloWorldComponent store={helloStore} />
 
         <footer className="footer">
-          <p>Basic React Project</p>
+          <p className="pull-left">Basic React Project</p>
+          <a className="pull-right" href="https://github.com/hugolima/basic-react-app">
+            <img className="index__img-logo-git" src={imgGitLogo} width="80" />
+          </a>
         </footer>
       </div>
     )

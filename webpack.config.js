@@ -31,11 +31,11 @@ module.exports = {
         loader: ExtractTextPlugin.extract('css!postcss!sass?includePaths[]=' + SRC + '&includePaths[]=' + NODE_MODULE_PATH)
       },
       {
-        test: /\.(woff2?|svg)$/,
+        test: /\.(woff2?|svg|png)$/,
         loader: 'url?limit=10000'
       },
       {
-        test: /\.(eot|ttf|gif|png)$/,
+        test: /\.(eot|ttf|gif)$/,
         loader: 'file'
       },
       {
