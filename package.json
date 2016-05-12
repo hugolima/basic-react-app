@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Basic React Application",
   "main": "./server/app.js",
+  "homepage": "http://basic-react-app.herokuapp.com",
   "engines": {
     "node": "6.0.0"
   },
