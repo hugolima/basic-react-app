@@ -1,4 +1,4 @@
 module.exports = {
   maxLengthName: 40,
-  maxHellosStore: 50
+  maxHellosStore: 10
 }

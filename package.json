@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start-dev": "node ./server/app.js | webpack -d --watch",
+    "build-local": "NODE_ENV=production webpack -p",
     "build": "webpack -p",
     "start": "npm run build && node ./server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,7 +16,8 @@
   "keywords": [
     "npm",
     "webpack",
-    "react"
+    "react",
+    "bootstrap"
   ],
   "author": "Hugo Lima",
   "repository": {

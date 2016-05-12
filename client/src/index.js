@@ -56,7 +56,7 @@ class App extends React.Component {
               <li role="presentation" className="active"><a href="/">Home</a></li>
             </ul>
           </nav>
-          <h3 className="text-muted">Basic React Project - Hello World</h3>
+          <h3 className="text-muted">Hello World React</h3>
         </div>
 
         <HelloWorldComponent store={helloStore} />
@@ -64,7 +64,7 @@ class App extends React.Component {
         <footer className="footer">
           <p className="pull-left">Basic React Project</p>
           <a className="pull-right" href="https://github.com/hugolima/basic-react-app">
-            <img className="index__img-logo-git" src={imgGitLogo} width="80" />
+            <img className="index__img-logo-git" src={imgGitLogo} />
           </a>
         </footer>
       </div>
