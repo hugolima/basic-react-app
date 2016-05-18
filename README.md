@@ -1,6 +1,6 @@
 # Basic Ract App - Hello World
 
-Minimal React Application structure using Bootstrap and Webpack.
+Minimal React application structure using NPM, Bootstrap and Webpack.
 
 Try it online:
 
