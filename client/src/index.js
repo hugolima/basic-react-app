@@ -16,9 +16,7 @@ class HelloStore {
       url: this.uriApi,
       dataType: 'json',
       cache: false,
-      success: (helloList) => {
-        success(helloList)
-      },
+      success: helloList => success(helloList),
       error: (xhr, status, err) => {
         console.log('Error: ' + xhr + ' - ' + status + ' - ' + err)
         error(err)
@@ -33,9 +31,7 @@ class HelloStore {
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
       data: JSON.stringify(hello),
-      success: (newlyHello) => {
-        success(newlyHello)
-      },
+      success: newlyHello => success(newlyHello),
       error: (xhr, status, err) => {
         console.log('Error: ' + xhr + ' - ' + status + ' - ' + err)
         error(err)

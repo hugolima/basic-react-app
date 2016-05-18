@@ -117,12 +117,8 @@ class HelloWorldComponent extends React.Component {
       this.setState({helloList: helloList})
     } else {
       this.props.store.getList(
-        (listFromStore) => {
-          this.setState({helloList: listFromStore})
-        },
-        (err) => {
-          console.log('Error getting the hello list!')
-        }
+        listFromStore => this.setState({helloList: listFromStore}),
+        err => console.log('Error getting the hello list!')
       )
     }
   }
@@ -137,9 +133,7 @@ class HelloWorldComponent extends React.Component {
     // Try to save the new Hello in the server.
     // If OK, we update the hello list with data from the server, otherwise we bring back the old hello list.
     this.props.store.add(newHello,
-      () => {
-        this.updateHelloList()
-      },
+      () => this.updateHelloList(),
       (err) => {
         this.updateHelloList(oldHelloList)
         console.log('Error adding a new hello!')
