@@ -2,9 +2,16 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const jsonParser = require('body-parser').json()
+const compression = require('compression')
 const helloWorldController = require('./controllers/helloworld')
+const isProd = process.env.NODE_ENV === 'production'
 
 app.set('port', (process.env.PORT || 3000))
+
+if (isProd) {
+  app.use(compression())
+}
+
 app.use('/', express.static(path.join(__dirname, '../client/app')))
 app.use(jsonParser)
 
