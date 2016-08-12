@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import {render} from 'react-dom'
 import HelloWorldComponent from 'components/helloworld.js'
 import imgGitLogo from './images/GitHub_Logo.png'
@@ -40,32 +40,30 @@ class HelloStore {
   }
 }
 
-class App extends React.Component {
-  render () {
-    let helloStore = new HelloStore('/api/hellos')
+const App = ({store}) => (
+  <div className="container">
+    <div className="header clearfix">
+      <nav>
+        <ul className="nav nav-pills pull-right">
+          <li role="presentation" className="active"><a href="/">Home</a></li>
+        </ul>
+      </nav>
+      <h3 className="text-muted">Hello World React</h3>
+    </div>
 
-    return (
-      <div className="container">
-        <div className="header clearfix">
-          <nav>
-            <ul className="nav nav-pills pull-right">
-              <li role="presentation" className="active"><a href="/">Home</a></li>
-            </ul>
-          </nav>
-          <h3 className="text-muted">Hello World React</h3>
-        </div>
+    <HelloWorldComponent store={store} />
 
-        <HelloWorldComponent store={helloStore} />
+    <footer className="footer">
+      <p className="pull-left">Basic React Project</p>
+      <a className="pull-right" href="https://github.com/hugolima/basic-react-app">
+        <img className="index__img-logo-git" src={imgGitLogo} />
+      </a>
+    </footer>
+  </div>
+)
 
-        <footer className="footer">
-          <p className="pull-left">Basic React Project</p>
-          <a className="pull-right" href="https://github.com/hugolima/basic-react-app">
-            <img className="index__img-logo-git" src={imgGitLogo} />
-          </a>
-        </footer>
-      </div>
-    )
-  }
+App.propTypes = {
+  store: PropTypes.instanceOf(HelloStore).isRequired
 }
 
-render(<App/>, document.getElementById('content'))
+render(<App store={new HelloStore('/api/hellos')}/>, document.getElementById('content'))

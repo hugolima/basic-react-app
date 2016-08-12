@@ -1,17 +1,23 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import HelloConfig from 'server/config.js'
 import 'stylesheets/modules/helloworld.scss'
 
-class LastHelloWorld extends React.Component {
-  render() {
-    return (
-      <div className="helloworld__last">
-        <h1 className="text-left">Last Hello</h1>
-        <p className="text-left">Name: <strong>{this.props.hello ? this.props.hello.name : 'Nobody yet'}</strong></p>
-        <p className="text-left">Local Date: <strong>{this.props.hello ? this.props.hello.date : 'No local date'}</strong></p>
-      </div>
-    )
-  }
+const helloShape = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired
+}
+
+const LastHelloWorld = ({hello}) => (
+  <div className="helloworld__last">
+    <h1 className="text-left">Last Hello</h1>
+    <p className="text-left">Name: <strong>{hello ? hello.name : 'Nobody yet'}</strong></p>
+    <p className="text-left">Local Date: <strong>{hello ? hello.date : 'No local date'}</strong></p>
+  </div>
+)
+
+LastHelloWorld.propTypes = {
+  hello: PropTypes.shape(helloShape)
 }
 
 class NewHelloWorldForm extends React.Component {
@@ -61,40 +67,42 @@ class NewHelloWorldForm extends React.Component {
   }
 }
 
-class HelloWorldRow extends React.Component {
-  render() {
-    return (
-      <tr>
-        <td>{this.props.hello.id}</td>
-        <td>{this.props.hello.name}</td>
-        <td>{this.props.hello.date}</td>
-      </tr>
-    )
-  }
+const HelloWorldRow = ({hello}) => (
+  <tr>
+    <td>{hello.id}</td>
+    <td>{hello.name}</td>
+    <td>{hello.date}</td>
+  </tr>
+)
+
+HelloWorldRow.propTypes = {
+  hello: PropTypes.shape(helloShape).isRequired
 }
 
-class HelloWorldTable extends React.Component {
-  render() {
-    let helloRows = this.props.data.map((hello) => {
-      let rowId = hello.id || hello._id
-      return <HelloWorldRow hello={hello} key={rowId} />
-    })
+const HelloWorldTable = ({helloList}) => {
+  let helloRows = helloList.map((hello) => {
+    let rowId = hello.id || hello._id
+    return <HelloWorldRow hello={hello} key={rowId} />
+  })
 
-    return (
-      <div>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Local Date</th>
-            </tr>
-          </thead>
-          <tbody>{helloRows}</tbody>
-        </table>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Local Date</th>
+          </tr>
+        </thead>
+        <tbody>{helloRows}</tbody>
+      </table>
+    </div>
+  )
+}
+
+HelloWorldTable.propTypes = {
+  helloList: PropTypes.arrayOf(PropTypes.shape(helloShape)).isRequired
 }
 
 class HelloWorldComponent extends React.Component {
@@ -151,7 +159,7 @@ class HelloWorldComponent extends React.Component {
         <div className="row marketing">
           {
             this.state.helloList.length > 0
-                ? <HelloWorldTable data={this.state.helloList} />
+                ? <HelloWorldTable helloList={this.state.helloList} />
                 : <div className="text-center"><h3>There is no Hello yet!</h3></div>
           }
         </div>
