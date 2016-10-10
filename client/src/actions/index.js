@@ -40,6 +40,7 @@ export function fetchHellos() {
     return fetch(hellosApi)
       .then(resp => resp.json())
       .then(json => dispatch(receiveHellos(json)))
+      .catch(error => console.log(error))
   }
 }
 
@@ -47,10 +48,15 @@ export function addHello(hello) {
   return dispatch => {
     dispatch(requestAddHello(hello))
     return fetch(hellosApi, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
         method: 'POST',
         body: JSON.stringify(hello)
       })
       .then(resp => resp.json())
       .then(json => dispatch(receiveAddHello(json)))
+      .catch(error => console.log(error))
   }
 }

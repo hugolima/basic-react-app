@@ -43,7 +43,7 @@ class NewHelloWorldForm extends React.Component {
     }
 
     this.props.onNewHello({
-      id: '',
+      id: 0,
       _id: new Date().getTime(),
       name: newName,
       date: '' + new Date()

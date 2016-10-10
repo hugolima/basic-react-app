@@ -1,9 +1,12 @@
+import { combineReducers } from 'redux'
 import { REQUEST_HELLOS, RECEIVE_HELLOS, ADD_HELLO, ADD_HELLO_SUCCESS } from '../actions'
 
-function hello(state = {
+const initialHelloState = {
   isFetching: true,
   items: []
-}, action) {
+}
+
+function hello(state = initialHelloState, action) {
   switch(action.type) {
     case REQUEST_HELLOS:
       return Object.assign({}, state, {
@@ -15,27 +18,34 @@ function hello(state = {
         items: action.hellos
       })
     case ADD_HELLO:
-      let items = state.items.slice()
+      let newItems = state.items.slice()
+      newItems.unshift(action.hello)
+
       return Object.assign({}, state, {
         isFetching: false,
-        items: items.unshift(action.hello)
+        items: newItems
       })
     case ADD_HELLO_SUCCESS:
-      return state.items.map(hello => {
-        if (hello._id === action.newlyHello._id) {
-          return Object.assign({}, hello, {
-            id: newlyHello.id
+      let itensUpdated = state.items.map(item => {
+        if (item._id === action.newlyHello._id) {
+          return Object.assign({}, item, {
+            id: action.newlyHello.id
           })
         }
-        return hello
+        return item
+      })
+
+      return Object.assign({}, state, {
+        isFetching: false,
+        items: itensUpdated
       })
     default:
       return state
   }
 }
 
-export default function helloReducer(state = {}, action) {
-  return {
-    hello: hello(state.hello, action)
-  }
-}
+const helloReducer = combineReducers({
+  hello
+})
+
+export default helloReducer
