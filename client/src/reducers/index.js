@@ -1,6 +1,6 @@
-import {REQUEST_HELLOS, RECEIVE_HELLOS, ADD_HELLO, ADD_HELLO_SUCCESS} from '../actions'
+import { REQUEST_HELLOS, RECEIVE_HELLOS, ADD_HELLO, ADD_HELLO_SUCCESS } from '../actions'
 
-function hellos(state = {
+function hello(state = {
   isFetching: true,
   items: []
 }, action) {
@@ -30,12 +30,12 @@ function hellos(state = {
         return hello
       })
     default:
-     return state
+      return state
   }
 }
 
-export default helloReducer(state = {}, action) {
+export default function helloReducer(state = {}, action) {
   return {
-    hellos: hellos(state.hellos, action)
+    hello: hello(state.hello, action)
   }
 }

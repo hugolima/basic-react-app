@@ -1,4 +1,3 @@
-
 import fetch from 'isomorphic-fetch'
 
 const hellosApi = '/api/hellos'
@@ -16,21 +15,21 @@ function requestHellos() {
 
 function receiveHellos(hellosList) {
   return {
-    type: RECEIVE_HELLOS
+    type: RECEIVE_HELLOS,
     hellos: hellosList
   }
 }
 
-function addHello(hello) {
+function requestAddHello(hello) {
   return {
     type: ADD_HELLO,
     hello
   }
 }
 
-function addHelloSuccess(newlyHello) {
+function receiveAddHello(newlyHello) {
   return {
-    type: ADD_HELLO_SUCCESS
+    type: ADD_HELLO_SUCCESS,
     newlyHello
   }
 }
@@ -39,19 +38,19 @@ export function fetchHellos() {
   return dispatch => {
     dispatch(requestHellos())
     return fetch(hellosApi)
-        .then(resp => resp.json())
-        .then(json => dispatch(receiveHellos(json)))
+      .then(resp => resp.json())
+      .then(json => dispatch(receiveHellos(json)))
   }
 }
 
 export function addHello(hello) {
   return dispatch => {
-    dispatch(addHello(hello))
+    dispatch(requestAddHello(hello))
     return fetch(hellosApi, {
-          method: 'POST',
-          body: JSON.stringify(hello)
-        })
-        .then(resp => resp.json())
-        .then(json => dispatch(addHelloSuccess(json)))
+        method: 'POST',
+        body: JSON.stringify(hello)
+      })
+      .then(resp => resp.json())
+      .then(json => dispatch(receiveAddHello(json)))
   }
 }

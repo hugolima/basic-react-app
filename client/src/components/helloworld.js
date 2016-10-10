@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 import HelloConfig from 'server/config.js'
 import 'stylesheets/modules/helloworld.scss'
 
@@ -106,60 +106,22 @@ HelloWorldTable.propTypes = {
 }
 
 class HelloWorldComponent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleNewHello = this.handleNewHello.bind(this)
-    this.updateHelloList = this.updateHelloList.bind(this)
-    this.state = {
-      helloList: []
-    }
-  }
-
   componentDidMount() {
-    this.updateHelloList()
-    setInterval(this.updateHelloList, 30000)
-  }
-
-  updateHelloList(helloList) {
-    if (helloList) {
-      this.setState({helloList: helloList})
-    } else {
-      this.props.store.getList(
-        listFromStore => this.setState({helloList: listFromStore}),
-        err => console.log('Error getting the hello list!')
-      )
-    }
-  }
-
-  handleNewHello(newHello) {
-    let oldHelloList = this.state.helloList.concat([])
-
-    // Update immediately the UI list
-    this.state.helloList.unshift(newHello)
-    this.updateHelloList(this.state.helloList)
-
-    // Try to save the new Hello in the server.
-    // If OK, we update the hello list with data from the server, otherwise we bring back the old hello list.
-    this.props.store.add(newHello,
-      () => this.updateHelloList(),
-      (err) => {
-        this.updateHelloList(oldHelloList)
-        console.log('Error adding a new hello!')
-      }
-    )
+    this.props.fetchHelloList()
+    setInterval(this.props.fetchHelloList, 30000)
   }
 
   render() {
     return (
       <div>
         <div className="jumbotron">
-          <LastHelloWorld hello={this.state.helloList[0]} />
-          <NewHelloWorldForm onNewHello={this.handleNewHello} />
+          <LastHelloWorld hello={this.props.hellos[0]} />
+          <NewHelloWorldForm onNewHello={this.props.handleNewHello} />
         </div>
         <div className="row marketing">
           {
-            this.state.helloList.length > 0
-                ? <HelloWorldTable helloList={this.state.helloList} />
+            this.props.hellos.length > 0
+                ? <HelloWorldTable helloList={this.props.hellos} />
                 : <div className="text-center"><h3>There is no Hello yet!</h3></div>
           }
         </div>
