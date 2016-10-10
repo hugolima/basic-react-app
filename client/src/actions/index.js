@@ -6,6 +6,7 @@ export const REQUEST_HELLOS = 'REQUEST_HELLOS'
 export const RECEIVE_HELLOS = 'RECEIVE_HELLOS'
 export const ADD_HELLO = 'ADD_HELLO'
 export const ADD_HELLO_SUCCESS = 'ADD_HELLO_SUCESS'
+export const ADD_HELLO_ERROR = 'ADD_HELLO_ERROR'
 
 function requestHellos() {
   return {
@@ -34,6 +35,20 @@ function receiveAddHello(newlyHello) {
   }
 }
 
+function receiveErrorAddHello(hello) {
+  return {
+    type: ADD_HELLO_ERROR,
+    hello
+  }
+}
+
+function handleError(resp) {
+  if (!resp.ok) {
+    throw new Error(resp.status)
+  }
+  return resp
+}
+
 export function fetchHellos() {
   return dispatch => {
     dispatch(requestHellos())
@@ -55,8 +70,12 @@ export function addHello(hello) {
         method: 'POST',
         body: JSON.stringify(hello)
       })
+      .then(handleError)
       .then(resp => resp.json())
       .then(json => dispatch(receiveAddHello(json)))
-      .catch(error => console.log(error))
+      .catch(error => {
+        dispatch(receiveErrorAddHello(hello))
+        console.log(error)
+      })
   }
 }

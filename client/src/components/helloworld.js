@@ -69,7 +69,7 @@ class NewHelloWorldForm extends React.Component {
 
 const HelloWorldRow = ({hello}) => (
   <tr>
-    <td>{hello.id}</td>
+    <td>{hello.id || ''}</td>
     <td>{hello.name}</td>
     <td>{hello.date}</td>
   </tr>

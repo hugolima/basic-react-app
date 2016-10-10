@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux'
-import { REQUEST_HELLOS, RECEIVE_HELLOS, ADD_HELLO, ADD_HELLO_SUCCESS } from '../actions'
+import {
+  REQUEST_HELLOS, RECEIVE_HELLOS,
+  ADD_HELLO, ADD_HELLO_SUCCESS, ADD_HELLO_ERROR
+} from '../actions'
 
 const initialHelloState = {
   isFetching: true,
@@ -26,7 +29,7 @@ function hello(state = initialHelloState, action) {
         items: newItems
       })
     case ADD_HELLO_SUCCESS:
-      let itensUpdated = state.items.map(item => {
+      let itemsUpdated = state.items.map(item => {
         if (item._id === action.newlyHello._id) {
           return Object.assign({}, item, {
             id: action.newlyHello.id
@@ -37,8 +40,20 @@ function hello(state = initialHelloState, action) {
 
       return Object.assign({}, state, {
         isFetching: false,
-        items: itensUpdated
+        items: itemsUpdated
       })
+    case ADD_HELLO_ERROR:
+        let itemsFiltered = state.items.filter(item => {
+          if (item === action.hello) {
+            return false
+          }
+          return true
+        })
+
+        return Object.assign({}, state, {
+          isFetching: false,
+          items: itemsFiltered
+        })
     default:
       return state
   }
