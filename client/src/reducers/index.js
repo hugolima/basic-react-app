@@ -12,7 +12,7 @@ function hello(state = {
     case RECEIVE_HELLOS:
       return Object.assign({}, state, {
         isFetching: false,
-        items: action.items
+        items: action.hellos
       })
     case ADD_HELLO:
       let items = state.items.slice()
