@@ -25,7 +25,6 @@ class NewHelloWorldForm extends React.Component {
     super(props)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleNewHelloSubmit = this.handleNewHelloSubmit.bind(this)
-    this.hasErrorsForElement = this.hasErrorsForElement.bind(this)
     this.state = {
       errors: [],
       newName: ''
@@ -39,7 +38,6 @@ class NewHelloWorldForm extends React.Component {
   handleNewHelloSubmit(e) {
     e.preventDefault();
     let newName = this.state.newName.trim()
-
     this.setState({errors: [], newName: ''})
 
     this.props.onNewHello({
@@ -56,24 +54,30 @@ class NewHelloWorldForm extends React.Component {
   }
 
   hasErrorsForElement(id) {
-    const errors = this.state.errors.filter(error => {
-      if (error.id_element === id) {
-        return true
-      }
-      return false
-    })
-
+    const errors = this.state.errors.filter(error => error.id_element === id)
     return !!errors.length
+  }
+
+  getErrorMessage(id) {
+    return this.state.errors
+      .filter(error => error.id_element === id)
+      .map(error => error.message)
+      .join(' ')
   }
 
   render() {
     return (
       <form className="helloworld__new-form" onSubmit={this.handleNewHelloSubmit}>
-        <div className={this.hasErrorsForElement('element_hello_name') ? 'form-group has-error' : 'form-group'}>
+        <div className={this.hasErrorsForElement('element_hello_name') ? 'form-group text-left has-error' : 'form-group text-left'}>
           <input type="text" className="form-control input-lg" maxLength={helloConfig.maxLengthName}
               placeholder="Be the last one, type your name..."
               value={this.state.newName}
               onChange={this.handleNameChange} />
+          {
+            this.hasErrorsForElement('element_hello_name')
+              ? <label className="control-label helloworld__new-form__error-msg">{this.getErrorMessage('element_hello_name')}</label>
+              : ''
+          }
         </div>
         <p className="text-left"><button type="submit" className="btn btn-success">Say Hello</button></p>
       </form>

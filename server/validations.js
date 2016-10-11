@@ -17,7 +17,7 @@ function validateHelloObject(hello) {
   }
 
   if (!hello.name) {
-    errors.push(error(idElementName, 'Who is giving the hello'))
+    errors.push(error(idElementName, 'Who is giving the hello?'))
   } else {
     if (hello.name.length < minLengthName) {
       errors.push(error(idElementName, `The name must have at least ${minLengthName} characters`))
