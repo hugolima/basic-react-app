@@ -5,5 +5,6 @@ import helloReducer from '../reducers'
 export default function configureStore() {
   return createStore(
     helloReducer,
-    applyMiddleware(thunkMiddleware))
+    applyMiddleware(thunkMiddleware)
+  )
 }
