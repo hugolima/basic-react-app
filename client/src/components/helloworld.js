@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import HelloConfig from 'server/config.js'
+import helloConfig from 'server/config.js'
 import 'stylesheets/modules/helloworld.scss'
 
 const helloShape = {
@@ -25,7 +25,9 @@ class NewHelloWorldForm extends React.Component {
     super(props)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleNewHelloSubmit = this.handleNewHelloSubmit.bind(this)
+    this.hasErrorsForElement = this.hasErrorsForElement.bind(this)
     this.state = {
+      errors: [],
       newName: ''
     }
   }
@@ -38,25 +40,37 @@ class NewHelloWorldForm extends React.Component {
     e.preventDefault();
     let newName = this.state.newName.trim()
 
-    if (!newName) {
-      return
-    }
+    this.setState({errors: [], newName: ''})
 
     this.props.onNewHello({
       id: 0,
       _id: new Date().getTime(),
       name: newName,
       date: '' + new Date()
+    }, errors => {
+      this.setState({
+        errors,
+        newName
+      })
+    })
+  }
+
+  hasErrorsForElement(id) {
+    const errors = this.state.errors.filter(error => {
+      if (error.id_element === id) {
+        return true
+      }
+      return false
     })
 
-    this.setState({newName: ''})
+    return !!errors.length
   }
 
   render() {
     return (
       <form className="helloworld__new-form" onSubmit={this.handleNewHelloSubmit}>
-        <div className="form-group">
-          <input type="text" className="form-control input-lg" maxLength={HelloConfig.maxLengthName}
+        <div className={this.hasErrorsForElement('element_hello_name') ? 'form-group has-error' : 'form-group'}>
+          <input type="text" className="form-control input-lg" maxLength={helloConfig.maxLengthName}
               placeholder="Be the last one, type your name..."
               value={this.state.newName}
               onChange={this.handleNameChange} />
@@ -80,7 +94,7 @@ HelloWorldRow.propTypes = {
 }
 
 const HelloWorldTable = ({helloList}) => {
-  let helloRows = helloList.map((hello) => {
+  let helloRows = helloList.map(hello => {
     let rowId = hello.id || hello._id
     return <HelloWorldRow hello={hello} key={rowId} />
   })

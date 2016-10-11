@@ -59,8 +59,8 @@ function hello(state = initialHelloState, action) {
   }
 }
 
-const helloReducer = combineReducers({
+const rootReducer = combineReducers({
   hello
 })
 
-export default helloReducer
+export default rootReducer

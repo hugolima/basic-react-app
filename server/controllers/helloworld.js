@@ -1,7 +1,7 @@
 
 const fs = require('fs')
 const helloConfig = require('../config.js')
-
+const { validateHelloObject } = require('../validations.js')
 const filePath = './server/hellostore.json'
 
 function checkFileExists() {
@@ -23,19 +23,27 @@ function writeJsonToStore(jsonObject) {
   fs.writeFileSync(filePath, JSON.stringify(jsonObject), 'utf-8')
 }
 
-class HelloWorldController {
-  getHelloList() {
+function validateHello(hello) {
+  const errors = validateHelloObject(hello)
+  
+  if (errors.length > 0) {
+    let messages = errors.map(error => {
+      return error.message
+    })
+    throw new Error(messages.join(','))
+  }
+}
+
+const helloWorldController = {
+  getHelloList: () => {
     let hellosObject = readJsonFromStore()
     return hellosObject.hellos
-  }
-
-  addHello(hello) {
+  },
+  addHello: (hello) => {
     let hellosObject = readJsonFromStore()
     let lastId = hellosObject.last_id
 
-    if (!hello || !hello.name) {
-      return
-    }
+    validateHello(hello)
 
     hello.id = lastId + 1
     hello.name = hello.name.slice(0, helloConfig.maxLengthName)
@@ -53,4 +61,4 @@ class HelloWorldController {
   }
 }
 
-module.exports = new HelloWorldController()
+module.exports = helloWorldController

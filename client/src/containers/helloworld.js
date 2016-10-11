@@ -9,13 +9,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-
   const fetchHelloList = () => {
     dispatch(fetchHellos())
   }
 
-  const handleNewHello = (hello) => {
-    dispatch(addHello(hello))
+  const handleNewHello = (hello, errorFn) => {
+    dispatch(addHello(hello, errorFn))
   }
 
   return {

@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+//import { validateHelloObject } from 'server/validations.js'
 
 const hellosApi = '/api/hellos'
 
@@ -59,9 +60,17 @@ export function fetchHellos() {
   }
 }
 
-export function addHello(hello) {
+export function addHello(hello, errorFn) {
   return dispatch => {
+    let errors = [] //validateHelloObject(hello)
+
+    if (errors.length > 0) {
+      errorFn(errors)
+      return
+    }
+
     dispatch(requestAddHello(hello))
+
     return fetch(hellosApi, {
         headers: {
           'Accept': 'application/json',
