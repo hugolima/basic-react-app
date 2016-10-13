@@ -67,9 +67,7 @@ class NewHelloWorldForm extends React.Component {
               value={this.state.newName}
               onChange={this.handleNameChange} />
           {
-            this.hasErrorForElement('element_hello_name')
-              ? <label className="control-label helloworld__new-form__error-msg">{this.getErrorMessage('element_hello_name')}</label>
-              : ''
+            this.hasErrorForElement('element_hello_name') && <label className="control-label helloworld__new-form__error-msg">{this.getErrorMessage('element_hello_name')}</label>
           }
         </div>
         <p className="text-left"><button type="submit" className="btn btn-success">Say Hello</button></p>

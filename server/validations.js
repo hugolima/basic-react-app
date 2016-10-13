@@ -14,6 +14,7 @@ function validateHelloObject(hello) {
 
   if (!hello) {
     errors.push(error(idGenericError, 'Hello object not provided'))
+    return errors
   }
 
   if (!hello.name) {
