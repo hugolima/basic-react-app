@@ -61,7 +61,7 @@ class NewHelloWorldForm extends React.Component {
   render() {
     return (
       <form className="helloworld__new-form" onSubmit={this.handleNewHelloSubmit}>
-        <div className={this.hasErrorForElement('element_hello_name') ? 'form-group text-left has-error' : 'form-group text-left'}>
+        <div className={'form-group text-left' + (this.hasErrorForElement('element_hello_name') && ' has-error')}>
           <input type="text" className="form-control input-lg" maxLength={helloConfig.maxLengthName}
               placeholder="Be the last one, type your name..."
               value={this.state.newName}
