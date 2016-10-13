@@ -15,11 +15,13 @@ function hello(state = initialHelloState, action) {
       return Object.assign({}, state, {
         isFetching: true
       })
+
     case RECEIVE_HELLOS:
       return Object.assign({}, state, {
         isFetching: false,
         items: action.hellos
       })
+
     case ADD_HELLO:
       let newItems = state.items.slice()
       newItems.unshift(action.hello)
@@ -28,6 +30,7 @@ function hello(state = initialHelloState, action) {
         isFetching: false,
         items: newItems
       })
+
     case ADD_HELLO_SUCCESS:
       let itemsUpdated = state.items.map(item => {
         if (item._id === action.newlyHello._id) {
@@ -42,13 +45,15 @@ function hello(state = initialHelloState, action) {
         isFetching: false,
         items: itemsUpdated
       })
+
     case ADD_HELLO_ERROR:
         let itemsFiltered = state.items.filter(item => item !== action.hello)
-        
+
         return Object.assign({}, state, {
           isFetching: false,
           items: itemsFiltered
         })
+
     default:
       return state
   }

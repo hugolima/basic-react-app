@@ -40,7 +40,7 @@ class NewHelloWorldForm extends React.Component {
     let newName = this.state.newName.trim()
     this.setState({validationError: {}, newName: ''})
 
-    this.props.onNewHello({
+    this.props.handleNewHello({
       id: 0,
       _id: new Date().getTime(),
       name: newName,
@@ -125,7 +125,7 @@ class HelloWorldComponent extends React.Component {
       <div>
         <div className="jumbotron">
           <LastHelloWorld hello={this.props.hellos[0]} />
-          <NewHelloWorldForm onNewHello={this.props.handleNewHello} />
+          <NewHelloWorldForm handleNewHello={this.props.handleNewHello} />
         </div>
         <div className="row marketing">
           {
