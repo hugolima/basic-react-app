@@ -31,12 +31,17 @@ class NewHelloWorldForm extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.helloNameInput.focus()
+  }
+
   handleNameChange(e) {
     this.setState({newName: e.target.value})
   }
 
   handleNewHelloSubmit(e) {
     e.preventDefault();
+    
     let newName = this.state.newName.trim()
     this.setState({validationError: {}, newName: ''})
 
@@ -48,6 +53,8 @@ class NewHelloWorldForm extends React.Component {
     }, validationError => {
       this.setState({validationError, newName})
     })
+
+    this.helloNameInput.focus()
   }
 
   hasErrorForElement(id) {
@@ -62,8 +69,8 @@ class NewHelloWorldForm extends React.Component {
     return (
       <form className="helloworld__new-form" onSubmit={this.handleNewHelloSubmit}>
         <div className={'form-group text-left' + (this.hasErrorForElement('element_hello_name') && ' has-error')}>
-          <input type="text" className="form-control input-lg" maxLength={helloConfig.maxLengthName}
-              placeholder="Be the last one, type your name..."
+          <input type="text" className="form-control input-lg" maxLength={helloConfig.maxLengthName} placeholder="Be the last one, type your name..."
+              ref={i => this.helloNameInput = i}
               value={this.state.newName}
               onChange={this.handleNameChange} />
           {
