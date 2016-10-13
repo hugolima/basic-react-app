@@ -25,12 +25,10 @@ function writeJsonToStore(jsonObject) {
 
 function validateHello(hello) {
   const errors = validateHelloObject(hello)
-  
+
   if (errors.length > 0) {
-    let messages = errors.map(error => {
-      return error.message
-    })
-    throw new Error(messages.join(','))
+    let message = errors.map(error => error.message).join(',')
+    throw new Error(message)
   }
 }
 

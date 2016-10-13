@@ -43,13 +43,8 @@ function hello(state = initialHelloState, action) {
         items: itemsUpdated
       })
     case ADD_HELLO_ERROR:
-        let itemsFiltered = state.items.filter(item => {
-          if (item === action.hello) {
-            return false
-          }
-          return true
-        })
-
+        let itemsFiltered = state.items.filter(item => item !== action.hello)
+        
         return Object.assign({}, state, {
           isFetching: false,
           items: itemsFiltered

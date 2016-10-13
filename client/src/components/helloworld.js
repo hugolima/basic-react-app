@@ -26,7 +26,7 @@ class NewHelloWorldForm extends React.Component {
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleNewHelloSubmit = this.handleNewHelloSubmit.bind(this)
     this.state = {
-      errors: [],
+      validationError: {},
       newName: ''
     }
   }
@@ -38,43 +38,36 @@ class NewHelloWorldForm extends React.Component {
   handleNewHelloSubmit(e) {
     e.preventDefault();
     let newName = this.state.newName.trim()
-    this.setState({errors: [], newName: ''})
+    this.setState({validationError: {}, newName: ''})
 
     this.props.onNewHello({
       id: 0,
       _id: new Date().getTime(),
       name: newName,
       date: '' + new Date()
-    }, errors => {
-      this.setState({
-        errors,
-        newName
-      })
+    }, validationError => {
+      this.setState({validationError, newName})
     })
   }
 
-  hasErrorsForElement(id) {
-    const errors = this.state.errors.filter(error => error.id_element === id)
-    return !!errors.length
+  hasErrorForElement(id) {
+    return !!this.state.validationError[id]
   }
 
   getErrorMessage(id) {
-    return this.state.errors
-      .filter(error => error.id_element === id)
-      .map(error => error.message)
-      .join(' ')
+    return this.state.validationError[id].message
   }
 
   render() {
     return (
       <form className="helloworld__new-form" onSubmit={this.handleNewHelloSubmit}>
-        <div className={this.hasErrorsForElement('element_hello_name') ? 'form-group text-left has-error' : 'form-group text-left'}>
+        <div className={this.hasErrorForElement('element_hello_name') ? 'form-group text-left has-error' : 'form-group text-left'}>
           <input type="text" className="form-control input-lg" maxLength={helloConfig.maxLengthName}
               placeholder="Be the last one, type your name..."
               value={this.state.newName}
               onChange={this.handleNameChange} />
           {
-            this.hasErrorsForElement('element_hello_name')
+            this.hasErrorForElement('element_hello_name')
               ? <label className="control-label helloworld__new-form__error-msg">{this.getErrorMessage('element_hello_name')}</label>
               : ''
           }

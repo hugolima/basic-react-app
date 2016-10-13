@@ -14,7 +14,14 @@ function mapDispatchToProps(dispatch, ownProps) {
   }
 
   const handleNewHello = (hello, errorFn) => {
-    dispatch(addHello(hello, errorFn))
+    const validationErrorsFn = (errors) => {
+      const errorObj = errors.reduce((result, error) => {
+        result[error.id_element] = {...error}
+        return result
+      }, {})
+      errorFn(errorObj)
+    }
+    dispatch(addHello(hello, validationErrorsFn))
   }
 
   return {

@@ -1,5 +1,5 @@
 module.exports = {
-  minLengthName: 3,
+  minLengthName: 4,
   maxLengthName: 40,
   maxHellosStore: 10
 }

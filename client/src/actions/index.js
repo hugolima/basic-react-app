@@ -54,18 +54,19 @@ export function fetchHellos() {
   return dispatch => {
     dispatch(requestHellos())
     return fetch(hellosApi)
+      .then(handleError)
       .then(resp => resp.json())
       .then(json => dispatch(receiveHellos(json)))
       .catch(error => console.log(error))
   }
 }
 
-export function addHello(hello, errorFn) {
+export function addHello(hello, validationErrorsFn) {
   return dispatch => {
     let errors = validateHelloObject(hello)
 
     if (errors.length > 0) {
-      errorFn(errors)
+      validationErrorsFn(errors)
       return
     }
 
