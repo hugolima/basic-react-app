@@ -54,7 +54,7 @@ class NewHelloWorldForm extends React.Component {
       _id: new Date().getTime(),
       name: newName,
       date: '' + new Date()
-    }, validationError => {
+    }, (validationError) => {
       this.setState({validationError, newName})
     })
   }
