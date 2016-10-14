@@ -6,7 +6,7 @@ const hellosApi = '/api/hellos'
 export const REQUEST_HELLOS = 'REQUEST_HELLOS'
 export const RECEIVE_HELLOS = 'RECEIVE_HELLOS'
 export const ADD_HELLO = 'ADD_HELLO'
-export const ADD_HELLO_SUCCESS = 'ADD_HELLO_SUCESS'
+export const ADD_HELLO_SUCCESS = 'ADD_HELLO_SUCCESS'
 export const ADD_HELLO_ERROR = 'ADD_HELLO_ERROR'
 
 function requestHellos() {

@@ -139,16 +139,18 @@ class HelloWorldComponent extends React.Component {
   }
 
   render() {
+    const { hellos, handleNewHello } = this.props
+
     return (
       <div>
         <div className="jumbotron">
-          <LastHelloWorld hello={this.props.hellos[0]} />
-          <NewHelloWorldForm handleNewHello={this.props.handleNewHello} />
+          <LastHelloWorld hello={hellos[0]} />
+          <NewHelloWorldForm handleNewHello={handleNewHello} />
         </div>
         <div className="row marketing">
           {
-            this.props.hellos.length > 0
-                ? <HelloWorldTable helloList={this.props.hellos} />
+            hellos.length > 0
+                ? <HelloWorldTable helloList={hellos} />
                 : <div className="text-center"><h3>There is no Hello yet!</h3></div>
           }
         </div>
