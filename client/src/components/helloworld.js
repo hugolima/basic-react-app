@@ -8,6 +8,9 @@ const helloShape = {
   date: PropTypes.string.isRequired
 }
 
+
+// *** Last Hello World Component *** //
+
 const LastHelloWorld = ({hello}) => (
   <div className="helloworld__last">
     <h1 className="text-left">Last Hello</h1>
@@ -20,15 +23,16 @@ LastHelloWorld.propTypes = {
   hello: PropTypes.shape(helloShape)
 }
 
+
+// *** Form New Hello World Component *** //
+
 class NewHelloWorldForm extends React.Component {
   constructor(props) {
     super(props)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleNewHelloSubmit = this.handleNewHelloSubmit.bind(this)
-    this.state = {
-      validationError: {},
-      newName: ''
-    }
+
+    this.state = {validationError: {}, newName: ''}
   }
 
   componentDidMount() {
@@ -36,15 +40,15 @@ class NewHelloWorldForm extends React.Component {
   }
 
   handleNameChange(e) {
-    this.setState({newName: e.target.value})
+    this.setState({validationError: {}, newName: e.target.value})
   }
 
   handleNewHelloSubmit(e) {
     e.preventDefault();
-    
     let newName = this.state.newName.trim()
-    this.setState({validationError: {}, newName: ''})
 
+    this.setState({validationError: {}, newName: ''})
+    this.helloNameInput.focus()
     this.props.handleNewHello({
       id: 0,
       _id: new Date().getTime(),
@@ -53,11 +57,9 @@ class NewHelloWorldForm extends React.Component {
     }, validationError => {
       this.setState({validationError, newName})
     })
-
-    this.helloNameInput.focus()
   }
 
-  hasErrorForElement(id) {
+  hasError(id) {
     return !!this.state.validationError[id]
   }
 
@@ -68,13 +70,13 @@ class NewHelloWorldForm extends React.Component {
   render() {
     return (
       <form className="helloworld__new-form" onSubmit={this.handleNewHelloSubmit}>
-        <div className={'form-group text-left' + (this.hasErrorForElement('element_hello_name') && ' has-error')}>
+        <div className={'form-group text-left' + (this.hasError('element_hello_name') && ' has-error')}>
           <input type="text" className="form-control input-lg" maxLength={helloConfig.maxLengthName} placeholder="Be the last one, type your name..."
               ref={i => this.helloNameInput = i}
               value={this.state.newName}
               onChange={this.handleNameChange} />
           {
-            this.hasErrorForElement('element_hello_name') && <label className="control-label helloworld__new-form__error-msg">{this.getErrorMessage('element_hello_name')}</label>
+            this.hasError('element_hello_name') && <label className="control-label helloworld__new-form__error-msg">{this.getErrorMessage('element_hello_name')}</label>
           }
         </div>
         <p className="text-left"><button type="submit" className="btn btn-success">Say Hello</button></p>
@@ -82,6 +84,9 @@ class NewHelloWorldForm extends React.Component {
     )
   }
 }
+
+
+// *** Hello World Table Row Component *** //
 
 const HelloWorldRow = ({hello}) => (
   <tr>
@@ -94,6 +99,9 @@ const HelloWorldRow = ({hello}) => (
 HelloWorldRow.propTypes = {
   hello: PropTypes.shape(helloShape).isRequired
 }
+
+
+// *** Hello World Table List Component *** //
 
 const HelloWorldTable = ({helloList}) => {
   let helloRows = helloList.map(hello => {
@@ -120,6 +128,9 @@ const HelloWorldTable = ({helloList}) => {
 HelloWorldTable.propTypes = {
   helloList: PropTypes.arrayOf(PropTypes.shape(helloShape)).isRequired
 }
+
+
+// *** Hello World Main Component *** //
 
 class HelloWorldComponent extends React.Component {
   componentDidMount() {

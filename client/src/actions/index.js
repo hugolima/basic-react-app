@@ -29,14 +29,15 @@ function requestAddHello(hello) {
   }
 }
 
-function receiveAddHello(newlyHello) {
+function receiveAddHello(hello, storedId) {
   return {
     type: ADD_HELLO_SUCCESS,
-    newlyHello
+    hello,
+    storedId
   }
 }
 
-function receiveErrorAddHello(hello) {
+function receiveAddHelloError(hello) {
   return {
     type: ADD_HELLO_ERROR,
     hello
@@ -82,9 +83,9 @@ export function addHello(hello, validationErrorsFn) {
       })
       .then(handleError)
       .then(resp => resp.json())
-      .then(json => dispatch(receiveAddHello(json)))
+      .then(jsonNewlyHello => dispatch(receiveAddHello(hello, jsonNewlyHello.id)))
       .catch(error => {
-        dispatch(receiveErrorAddHello(hello))
+        dispatch(receiveAddHelloError(hello))
         console.log(error)
       })
   }

@@ -33,9 +33,9 @@ function hello(state = initialHelloState, action) {
 
     case ADD_HELLO_SUCCESS:
       let itemsUpdated = state.items.map(item => {
-        if (item._id === action.newlyHello._id) {
+        if (item === action.hello) {
           return Object.assign({}, item, {
-            id: action.newlyHello.id
+            id: action.storedId
           })
         }
         return item
@@ -47,11 +47,9 @@ function hello(state = initialHelloState, action) {
       })
 
     case ADD_HELLO_ERROR:
-        let itemsFiltered = state.items.filter(item => item !== action.hello)
-
         return Object.assign({}, state, {
           isFetching: false,
-          items: itemsFiltered
+          items: state.items.filter(item => item !== action.hello)
         })
 
     default:

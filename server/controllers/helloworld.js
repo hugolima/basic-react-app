@@ -52,7 +52,7 @@ const helloWorldController = {
     }
 
     hellosObject.last_id = hello.id
-    hellosObject.hellos.unshift(hello)
+    hellosObject.hellos.unshift(Object.assign({}, hello, {_id: undefined}))
 
     writeJsonToStore(hellosObject);
     return hello
