@@ -46,11 +46,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel',
         include: [SRC, SERVER_PATH],
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react'],
-          plugins: ['transform-object-assign', 'transform-object-rest-spread']
-        }
+        exclude: /node_modules/
       },
       {
         test: /\.scss$/,

@@ -5,7 +5,7 @@ import {
 } from '../actions'
 
 const initialHelloState = {
-  isFetching: true,
+  isFetching: false,
   items: []
 }
 
