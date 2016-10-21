@@ -1,3 +1,4 @@
+import deepFreeze from 'deep-freeze'
 import rootReducer from '../../../client/src/reducers'
 import {
   REQUEST_HELLOS, RECEIVE_HELLOS,
@@ -59,6 +60,8 @@ describe('hello reducers', () => {
       }
     }
 
+    deepFreeze(initialState)
+
     expect(
       rootReducer(initialState, {
         type: ADD_HELLO,
@@ -89,6 +92,8 @@ describe('hello reducers', () => {
       }
     }
 
+    deepFreeze(initialState)
+
     expect(
       rootReducer(initialState, {
         type: ADD_HELLO_SUCCESS,
@@ -118,6 +123,8 @@ describe('hello reducers', () => {
         ]
       }
     }
+
+    deepFreeze(initialState)
 
     expect(
       rootReducer(initialState, {
