@@ -28,9 +28,11 @@
   },
   "license": "MIT",
   "jest": {
+    "verbose": "true",
     "moduleNameMapper": {
       "^server/validations.js": "<rootDir>/server/validations.js",
-      "^server/config.js": "<rootDir>/server/config.js"
+      "^server/config.js": "<rootDir>/server/config.js",
+      "^.+\\.(css|scss)$": "<rootDir>/client/__mocks__/styleMock.js"
     }
   },
   "dependencies": {
