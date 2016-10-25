@@ -163,3 +163,5 @@ export default HelloWorldComponent
 
 // For unit tests
 export const LastHelloWorldTest = LastHelloWorld
+export const HelloWorldRowTest = HelloWorldRow
+export const HelloWorldTableTest = HelloWorldTable

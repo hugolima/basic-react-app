@@ -9,11 +9,11 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  const fetchHelloList = () => {
+  function fetchHelloList() {
     dispatch(fetchHellos())
   }
 
-  const handleNewHello = (hello, errorFn) => {
+  function handleNewHello(hello, errorFn) {
     function validationErrorsFn(errors) {
       const errorObj = errors.reduce((result, error) => {
         result[error.id_element] = {...error}
