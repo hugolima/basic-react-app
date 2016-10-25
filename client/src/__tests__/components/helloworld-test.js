@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { LastHelloWorldTest } from '../../../client/src/components/helloworld'
+import { LastHelloWorldTest } from '../../components/helloworld'
 
 describe('hello world component', () => {
   describe('last hello', () => {

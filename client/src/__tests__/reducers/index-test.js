@@ -1,9 +1,9 @@
 import deepFreeze from 'deep-freeze'
-import rootReducer from '../../../client/src/reducers'
+import rootReducer from '../../reducers'
 import {
   REQUEST_HELLOS, RECEIVE_HELLOS,
   ADD_HELLO, ADD_HELLO_SUCCESS, ADD_HELLO_ERROR
-} from '../../../client/src/actions'
+} from '../../actions'
 
 describe('hello reducers', () => {
   it('should return the initial state', () => {

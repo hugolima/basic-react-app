@@ -3,11 +3,11 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import nock from 'nock'
 import { minLengthName } from 'server/config.js'
-import { fetchHellos, addHello } from '../../../client/src/actions'
+import { fetchHellos, addHello } from '../../actions'
 import {
   REQUEST_HELLOS, RECEIVE_HELLOS,
   ADD_HELLO, ADD_HELLO_SUCCESS, ADD_HELLO_ERROR
-} from '../../../client/src/actions'
+} from '../../actions'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
