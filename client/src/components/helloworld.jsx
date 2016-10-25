@@ -11,13 +11,13 @@ const helloShape = {
 
 // *** Last Hello World Component *** //
 
-const LastHelloWorld = ({hello}) => (
-  <div className="helloworld__last">
+function LastHelloWorld({hello}) {
+  return <div className="helloworld__last">
     <h1 className="text-left">Last Hello</h1>
     <p className="text-left">Name: <strong>{hello ? hello.name : 'Nobody yet'}</strong></p>
     <p className="text-left">Local Date: <strong>{hello ? hello.date : 'No local date'}</strong></p>
   </div>
-)
+}
 
 LastHelloWorld.propTypes = {
   hello: PropTypes.shape(helloShape)
@@ -88,13 +88,13 @@ class NewHelloWorldForm extends React.Component {
 
 // *** Hello World Table Row Component *** //
 
-const HelloWorldRow = ({hello}) => (
-  <tr>
+function HelloWorldRow({ hello }) {
+  return <tr>
     <td>{hello.id || ''}</td>
     <td>{hello.name}</td>
     <td>{hello.date}</td>
   </tr>
-)
+}
 
 HelloWorldRow.propTypes = {
   hello: PropTypes.shape(helloShape).isRequired
@@ -103,7 +103,7 @@ HelloWorldRow.propTypes = {
 
 // *** Hello World Table List Component *** //
 
-const HelloWorldTable = ({helloList}) => {
+function HelloWorldTable({ helloList }) {
   let helloRows = helloList.map(hello => {
     let rowId = hello.id || hello._id
     return <HelloWorldRow hello={hello} key={rowId} />

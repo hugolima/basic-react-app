@@ -1,12 +1,12 @@
 import React from 'react'
-import HelloWorldContainer from './helloworld.js'
+import HelloWorldContainer from './helloworld'
 import imgGitLogo from '../images/GitHub_Logo.png'
 import 'stylesheets/base.scss'
 import 'jquery'
 import 'bootstrap-sass/assets/javascripts/bootstrap'
 
-const App = () => (
-  <div className="container">
+function App() {
+  return <div className="container">
     <div className="header clearfix">
       <nav>
         <ul className="nav nav-pills pull-right">
@@ -25,6 +25,6 @@ const App = () => (
       </a>
     </footer>
   </div>
-)
+}
 
 export default App

@@ -35,7 +35,7 @@ if (isProd) {
 }
 
 module.exports = {
-  entry: SRC + '/index.js',
+  entry: SRC + '/index.jsx',
   output: {
     path: APP,
     filename: isProd ? '[name].[hash].js' : '[name].js'
@@ -43,7 +43,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         loader: 'babel',
         include: [SRC, SERVER_PATH],
         exclude: /node_modules/
@@ -81,7 +81,7 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['', '.js', '.scss'],
+    extensions: ['', '.js', '.jsx', '.scss'],
     root: [SRC],
     alias: {
       server: SERVER_PATH

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { fetchHellos, addHello } from '../actions'
-import HelloWorldComponent from '../components/helloworld.js'
+import HelloWorldComponent from '../components/helloworld'
 
 function mapStateToProps(state) {
   return {
