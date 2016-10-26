@@ -68,7 +68,7 @@ export function addHello(hello, validationErrorsFn) {
     let errors = validateHelloObject(hello)
 
     if (errors.length > 0) {
-      setTimeout(validationErrorsFn(errors), 1)
+      setTimeout(validationErrorsFn(errors), 0)
       return Promise.resolve()
     }
 

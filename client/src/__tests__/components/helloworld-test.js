@@ -1,9 +1,12 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import {
-  LastHelloWorldTest, HelloWorldRowTest,
-  HelloWorldTableTest
-} from '../../components/helloworld'
+import { shallow, mount } from 'enzyme'
+import HelloWorldComponent from '../../components/helloworld'
+import { InternalComponents } from '../../components/helloworld'
+
+const {
+  LastHelloWorld, HelloWorldRow,
+  HelloWorldTable
+} = InternalComponents
 
 describe('hello world component', () => {
   describe('last hello', () => {
@@ -18,7 +21,7 @@ describe('hello world component', () => {
       const props = {
         hello: undefined
       }
-      const wrapper = shallow(<LastHelloWorldTest {...props} />)
+      const wrapper = shallow(<LastHelloWorld {...props} />)
 
       validateDefaultStructure(wrapper)
       expect(wrapper.find('p').at(0).text()).toBe('Name: Nobody yet')
@@ -33,7 +36,7 @@ describe('hello world component', () => {
           date:'Mon Oct 10 2016 00:00:00 GMT-0200 (BRST)'
         }
       }
-      const wrapper = shallow(<LastHelloWorldTest {...props} />)
+      const wrapper = shallow(<LastHelloWorld {...props} />)
 
       validateDefaultStructure(wrapper)
       expect(wrapper.find('p').at(0).text()).toBe('Name: Test 01')
@@ -57,7 +60,7 @@ describe('hello world component', () => {
           date:'Mon Oct 10 2016 00:00:00 GMT-0200 (BRST)'
         }
       }
-      const wrapper = shallow(<HelloWorldRowTest {...props} />)
+      const wrapper = shallow(<HelloWorldRow {...props} />)
 
       validateDefaultStructure(wrapper)
       expect(wrapper.find('td').at(0).text()).toBe('')
@@ -71,7 +74,7 @@ describe('hello world component', () => {
           date:'Mon Oct 10 2016 00:00:00 GMT-0200 (BRST)'
         }
       }
-      const wrapper = shallow(<HelloWorldRowTest {...props} />)
+      const wrapper = shallow(<HelloWorldRow {...props} />)
 
       validateDefaultStructure(wrapper)
       expect(wrapper.find('td').at(0).text()).toBe('1')
@@ -83,7 +86,8 @@ describe('hello world component', () => {
       const props = {
         helloList: [
           {
-            id: 10,
+            id: 0,
+            _id: 5555,
             name:'Test 01',
             date:'Mon Oct 10 2016 00:00:00 GMT-0200 (BRST)'
           },
@@ -94,13 +98,76 @@ describe('hello world component', () => {
           }
         ]
       }
-      const wrapper = shallow(<HelloWorldTableTest {...props} />)
+      const wrapper = shallow(<HelloWorldTable {...props} />)
 
       expect(wrapper.find('table').hasClass('table')).toBe(true)
       expect(wrapper.find('table').hasClass('table-striped')).toBe(true)
       expect(wrapper.find('tbody').children().length).toBe(2)
-      expect(wrapper.find('tbody').children().at(0).key()).toBe('10')
+      expect(wrapper.find('tbody').children().at(0).key()).toBe('5555')
       expect(wrapper.find('tbody').children().at(1).key()).toBe('25')
+    })
+  })
+
+  describe('hello main component', () => {
+    it('render a main hello world component with zero hello', () => {
+      const props = {
+        fetchHelloList: jest.fn(),
+        handleNewHello: jest.fn(),
+        hellos: []
+      }
+      const wrapper = mount(<HelloWorldComponent {...props} />)
+
+      expect(props.fetchHelloList).toHaveBeenCalledTimes(1)
+      expect(wrapper.props().hellos.length).toBe(0)
+      expect(wrapper.find('div.row').find('h3').length).toBe(1)
+      expect(wrapper.find('div.row').find('h3').text()).toBe('There is no Hello yet!')
+    })
+
+    it('render a main hello world component with one hello', () => {
+      const props = {
+        fetchHelloList: jest.fn(),
+        handleNewHello: jest.fn(),
+        hellos: [
+          {
+            id: 25,
+            name:'Test 02',
+            date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'
+          }
+        ]
+      }
+      const wrapper = mount(<HelloWorldComponent {...props} />)
+
+      expect(props.fetchHelloList).toHaveBeenCalledTimes(1)
+      expect(wrapper.props().hellos.length).toBe(1)
+      expect(wrapper.find('div.row').find('h3').length).toBe(0)
+      expect(wrapper.find('div.row').find('table').length).toBe(1)
+      expect(wrapper.find('div.row').find('table').find('tr').length).toBe(2)
+    })
+
+    it('render a main hello world component with two hello', () => {
+      const props = {
+        fetchHelloList: jest.fn(),
+        handleNewHello: jest.fn(),
+        hellos: [
+          {
+            id: 1,
+            name:'Test 01',
+            date:'Mon Oct 10 2016 00:00:00 GMT-0200 (BRST)'
+          },
+          {
+            id: 25,
+            name:'Test 02',
+            date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'
+          }
+        ]
+      }
+      const wrapper = mount(<HelloWorldComponent {...props} />)
+      
+      expect(props.fetchHelloList).toHaveBeenCalledTimes(1)
+      expect(wrapper.props().hellos.length).toBe(2)
+      expect(wrapper.find('div.row').find('h3').length).toBe(0)
+      expect(wrapper.find('div.row').find('table').length).toBe(1)
+      expect(wrapper.find('div.row').find('table').find('tr').length).toBe(3)
     })
   })
 })
