@@ -4,8 +4,8 @@ import HelloWorldComponent from '../../components/helloworld'
 import { InternalComponents } from '../../components/helloworld'
 
 const {
-  LastHelloWorld, HelloWorldRow,
-  HelloWorldTable
+  LastHelloWorld, NewHelloWorldForm,
+  HelloWorldRow, HelloWorldTable
 } = InternalComponents
 
 describe('hello world component', () => {
@@ -41,6 +41,23 @@ describe('hello world component', () => {
       validateDefaultStructure(wrapper)
       expect(wrapper.find('p').at(0).text()).toBe('Name: Test 01')
       expect(wrapper.find('p').at(1).text()).toBe('Local Date: Mon Oct 10 2016 00:00:00 GMT-0200 (BRST)')
+    })
+  })
+
+  describe('new hello form', () => {
+    it('render the form', () => {
+      const props = {
+        handleNewHello: jest.fn()
+      }
+      const wrapper = mount(<NewHelloWorldForm {...props} />)
+
+      console.log(wrapper.debug())
+
+      expect(wrapper.state()).toEqual({validationError: {}, newName: ''})
+      expect(wrapper.find('form').length).toBe(1)
+      expect(wrapper.find('form').hasClass('helloworld__new-form')).toBe(true)
+      expect(wrapper.find('form').find('div').hasClass('form-group')).toBe(true)
+      expect(wrapper.find('form').find('div').hasClass('text-left')).toBe(true)
     })
   })
 
@@ -162,7 +179,7 @@ describe('hello world component', () => {
         ]
       }
       const wrapper = mount(<HelloWorldComponent {...props} />)
-      
+
       expect(props.fetchHelloList).toHaveBeenCalledTimes(1)
       expect(wrapper.props().hellos.length).toBe(2)
       expect(wrapper.find('div.row').find('h3').length).toBe(0)

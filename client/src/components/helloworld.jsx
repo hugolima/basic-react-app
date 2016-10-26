@@ -70,13 +70,13 @@ class NewHelloWorldForm extends React.Component {
   render() {
     return (
       <form className="helloworld__new-form" onSubmit={this.handleNewHelloSubmit}>
-        <div className={'form-group text-left' + (this.hasError('element_hello_name') && ' has-error')}>
+        <div className={'form-group text-left' + (this.hasError('element_hello_name') ? ' has-error' : '')}>
           <input type="text" className="form-control input-lg" maxLength={helloConfig.maxLengthName} placeholder="Be the last one, type your name..."
               ref={i => this.helloNameInput = i}
               value={this.state.newName}
               onChange={this.handleNameChange} />
           {
-            this.hasError('element_hello_name') && <label className="control-label helloworld__new-form__error-msg">{this.getErrorMessage('element_hello_name')}</label>
+            this.hasError('element_hello_name') && <label className="control-label helloworld__new-form--error-msg">{this.getErrorMessage('element_hello_name')}</label>
           }
         </div>
         <p className="text-left"><button type="submit" className="btn btn-success">Say Hello</button></p>
@@ -164,6 +164,7 @@ export default HelloWorldComponent
 // For unit tests
 export const InternalComponents = {
   LastHelloWorld: LastHelloWorld,
+  NewHelloWorldForm: NewHelloWorldForm,
   HelloWorldRow: HelloWorldRow,
   HelloWorldTable: HelloWorldTable
 }

@@ -8,18 +8,17 @@ const SRC = path.resolve(__dirname, './client/src')
 const APP = path.resolve(__dirname, './client/app')
 const SERVER_PATH = path.resolve(__dirname, './server')
 const NODE_MODULE_PATH = path.resolve(__dirname, './node_modules')
-
-const isProd = process.env.NODE_ENV === 'production'
+const PROD = process.env.NODE_ENV === 'production'
 
 let plugins = [
-  new ExtractTextPlugin(isProd ? '[name].[contenthash].css' : '[name].css'),
+  new ExtractTextPlugin(PROD ? '[name].[contenthash].css' : '[name].css'),
   new HtmlWebpackPlugin({
     title: 'Basic React Project',
     template: SRC + '/index_html_template.ejs'
   })
 ]
 
-if (isProd) {
+if (PROD) {
   plugins.push(
     new webpack.DefinePlugin({
       'process.env': {
@@ -38,7 +37,7 @@ module.exports = {
   entry: SRC + '/index.jsx',
   output: {
     path: APP,
-    filename: isProd ? '[name].[hash].js' : '[name].js'
+    filename: PROD ? '[name].[hash].js' : '[name].js'
   },
   module: {
     loaders: [
