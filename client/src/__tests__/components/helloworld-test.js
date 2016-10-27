@@ -51,13 +51,66 @@ describe('hello world component', () => {
       }
       const wrapper = mount(<NewHelloWorldForm {...props} />)
 
-      console.log(wrapper.debug())
-
       expect(wrapper.state()).toEqual({validationError: {}, newName: ''})
       expect(wrapper.find('form').length).toBe(1)
       expect(wrapper.find('form').hasClass('helloworld__new-form')).toBe(true)
       expect(wrapper.find('form').find('div').hasClass('form-group')).toBe(true)
       expect(wrapper.find('form').find('div').hasClass('text-left')).toBe(true)
+      expect(wrapper.find('form').find('div').hasClass('has-error')).toBe(false)
+      expect(wrapper.find('button').length).toBe(1)
+      expect(wrapper.find('button').hasClass('btn-success')).toBe(true)
+    })
+
+    it('change the hello name value', () => {
+      const props = {
+        handleNewHello: jest.fn()
+      }
+      const wrapper = mount(<NewHelloWorldForm {...props} />)
+
+      wrapper.find('input').simulate('change', {target: {value: 'New name'}})
+      expect(wrapper.state()).toEqual({validationError: {}, newName: 'New name'})
+    })
+
+    it('handle success submit', () => {
+      const props = {
+        handleNewHello: jest.fn()
+      }
+      const wrapper = mount(<NewHelloWorldForm {...props} />)
+
+      expect(wrapper.state()).toEqual({validationError: {}, newName: ''})
+      wrapper.find('form').simulate('submit')
+      expect(wrapper.props().handleNewHello).toHaveBeenCalledTimes(1)
+      expect(wrapper.state()).toEqual({validationError: {}, newName: ''})
+      expect(wrapper.find('form').find('div').hasClass('form-group')).toBe(true)
+      expect(wrapper.find('form').find('div').hasClass('text-left')).toBe(true)
+      expect(wrapper.find('form').find('div').hasClass('has-error')).toBe(false)
+      expect(wrapper.find('label').length).toBe(0)
+    })
+
+    it('handle submit with input validation error', () => {
+      const errorValidation = {
+        id_element: 'element_hello_name',
+        message: 'Validation Error'
+      }
+      const props = {
+        handleNewHello: jest.fn((newHello, errorFn) => {
+          errorFn({
+            element_hello_name: errorValidation
+          })
+        })
+      }
+      const wrapper = mount(<NewHelloWorldForm {...props} />)
+
+      expect(wrapper.state()).toEqual({validationError: {}, newName: ''})
+      wrapper.find('form').simulate('submit')
+      expect(wrapper.props().handleNewHello).toHaveBeenCalledTimes(1)
+      expect(wrapper.state()).toEqual({validationError: {element_hello_name: errorValidation}, newName: ''})
+      expect(wrapper.find('form').find('div').hasClass('form-group')).toBe(true)
+      expect(wrapper.find('form').find('div').hasClass('text-left')).toBe(true)
+      expect(wrapper.find('form').find('div').hasClass('has-error')).toBe(true)
+      expect(wrapper.find('label').length).toBe(1)
+      expect(wrapper.find('label').hasClass('helloworld__new-form--error-msg')).toBe(true)
+      expect(wrapper.find('label').text()).toBe('Validation Error')
     })
   })
 
