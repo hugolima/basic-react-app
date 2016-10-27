@@ -40,6 +40,14 @@ module.exports = {
     filename: PROD ? '[name].[hash].js' : '[name].js'
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.(js|jsx)$/,
+        loader: 'eslint',
+        include: [SRC],
+        exclude: /node_modules/
+      },
+    ],
     loaders: [
       {
         test: /\.(js|jsx)$/,

@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { validateHelloObject } from 'server/validations.js'
+import { validateHelloObject } from 'server/validations'
 
 export const REQUEST_HELLOS = 'REQUEST_HELLOS'
 export const RECEIVE_HELLOS = 'RECEIVE_HELLOS'
@@ -12,21 +12,21 @@ const hellosApiURL = !isNode ? '/api/hellos' : 'http://localhost:3000/api/hellos
 
 function requestHellos() {
   return {
-    type: REQUEST_HELLOS
+    type: REQUEST_HELLOS,
   }
 }
 
 function receiveHellos(hellosList) {
   return {
     type: RECEIVE_HELLOS,
-    hellos: hellosList
+    hellos: hellosList,
   }
 }
 
 function requestAddHello(hello) {
   return {
     type: ADD_HELLO,
-    hello
+    hello,
   }
 }
 
@@ -34,14 +34,14 @@ function receiveAddHello(hello, storedId) {
   return {
     type: ADD_HELLO_SUCCESS,
     hello,
-    storedId
+    storedId,
   }
 }
 
 function receiveAddHelloError(hello) {
   return {
     type: ADD_HELLO_ERROR,
-    hello
+    hello,
   }
 }
 
@@ -53,7 +53,7 @@ function handleError(resp) {
 }
 
 export function fetchHellos() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(requestHellos())
     return fetch(hellosApiURL)
       .then(handleError)
@@ -64,8 +64,8 @@ export function fetchHellos() {
 }
 
 export function addHello(hello, validationErrorsFn) {
-  return dispatch => {
-    let errors = validateHelloObject(hello)
+  return (dispatch) => {
+    const errors = validateHelloObject(hello)
 
     if (errors.length > 0) {
       setTimeout(validationErrorsFn(errors), 0)
@@ -75,19 +75,16 @@ export function addHello(hello, validationErrorsFn) {
     dispatch(requestAddHello(hello))
 
     return fetch(hellosApiURL, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify(hello)
-      })
-      .then(handleError)
-      .then(resp => resp.json())
-      .then(jsonNewlyHello => dispatch(receiveAddHello(hello, jsonNewlyHello.id)))
-      .catch(error => {
-        dispatch(receiveAddHelloError(hello))
-        !isNode && console.log(error)
-      })
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(hello),
+    })
+    .then(handleError)
+    .then(resp => resp.json())
+    .then(jsonNewlyHello => dispatch(receiveAddHello(hello, jsonNewlyHello.id)))
+    .catch(error => dispatch(receiveAddHelloError(hello)))
   }
 }

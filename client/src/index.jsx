@@ -1,3 +1,5 @@
+/* global document */
+
 import React from 'react'
 import { Provider } from 'react-redux'
 import { render } from 'react-dom'
@@ -8,7 +10,7 @@ const store = configureStore()
 
 render(
   <Provider store={store}>
-    <App/>
+    <App />
   </Provider>,
   document.getElementById('content')
 )

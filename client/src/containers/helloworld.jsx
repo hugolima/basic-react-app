@@ -3,12 +3,10 @@ import { fetchHellos, addHello } from '../actions'
 import HelloWorldComponent from '../components/helloworld'
 
 function mapStateToProps(state) {
-  return {
-    hellos: state.hello.items
-  }
+  return { hellos: state.hello.items }
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch) {
   function fetchHelloList() {
     dispatch(fetchHellos())
   }
@@ -16,7 +14,7 @@ function mapDispatchToProps(dispatch, ownProps) {
   function handleNewHello(hello, errorFn) {
     function validationErrorsFn(errors) {
       const errorObj = errors.reduce((result, error) => {
-        result[error.id_element] = {...error}
+        result[error.id_element] = { ...error }
         return result
       }, {})
       errorFn(errorObj)
@@ -26,7 +24,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 
   return {
     fetchHelloList,
-    handleNewHello
+    handleNewHello,
   }
 }
 

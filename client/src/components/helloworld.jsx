@@ -1,26 +1,28 @@
 import React, { PropTypes } from 'react'
-import helloConfig from 'server/config.js'
-import 'stylesheets/modules/helloworld.scss'
+import helloConfig from 'server/config'
+import '../stylesheets/modules/helloworld.scss'
 
 const helloShape = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired
+  date: PropTypes.string.isRequired,
 }
 
 
 // *** Last Hello World Component *** //
 
-function LastHelloWorld({hello}) {
-  return <div className="helloworld__last">
-    <h1 className="text-left">Last Hello</h1>
-    <p className="text-left">Name: <strong>{hello ? hello.name : 'Nobody yet'}</strong></p>
-    <p className="text-left">Local Date: <strong>{hello ? hello.date : 'No local date'}</strong></p>
-  </div>
+function LastHelloWorld({ hello }) {
+  return (
+    <div className="helloworld__last">
+      <h1 className="text-left">Last Hello</h1>
+      <p className="text-left">Name: <strong>{ hello ? hello.name : 'Nobody yet' }</strong></p>
+      <p className="text-left">Local Date: <strong>{ hello ? hello.date : 'No local date' }</strong></p>
+    </div>
+  )
 }
 
 LastHelloWorld.propTypes = {
-  hello: PropTypes.shape(helloShape)
+  hello: PropTypes.shape(helloShape),
 }
 
 
@@ -32,31 +34,11 @@ class NewHelloWorldForm extends React.Component {
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleNewHelloSubmit = this.handleNewHelloSubmit.bind(this)
 
-    this.state = {validationError: {}, newName: ''}
+    this.state = { validationError: {}, newName: '' }
   }
 
   componentDidMount() {
     this.helloNameInput.focus()
-  }
-
-  handleNameChange(e) {
-    this.setState({validationError: {}, newName: e.target.value})
-  }
-
-  handleNewHelloSubmit(e) {
-    e.preventDefault();
-    let newName = this.state.newName.trim()
-
-    this.setState({validationError: {}, newName: ''})
-    this.helloNameInput.focus()
-    this.props.handleNewHello({
-      id: 0,
-      _id: new Date().getTime(),
-      name: newName,
-      date: '' + new Date()
-    }, (validationError) => {
-      this.setState({validationError, newName})
-    })
   }
 
   hasError(id) {
@@ -67,14 +49,35 @@ class NewHelloWorldForm extends React.Component {
     return this.state.validationError[id].message
   }
 
+  handleNameChange(e) {
+    this.setState({ validationError: {}, newName: e.target.value })
+  }
+
+  handleNewHelloSubmit(e) {
+    e.preventDefault();
+    const newName = this.state.newName.trim()
+
+    this.setState({ validationError: {}, newName: '' })
+    this.helloNameInput.focus()
+    this.props.handleNewHello({
+      id: 0,
+      _id: new Date().getTime(),
+      name: newName,
+      date: '' + new Date()
+    }, (validationError) => {
+      this.setState({ validationError, newName })
+    })
+  }
+
   render() {
     return (
       <form className="helloworld__new-form" onSubmit={this.handleNewHelloSubmit}>
         <div className={'form-group text-left' + (this.hasError('element_hello_name') ? ' has-error' : '')}>
-          <input type="text" className="form-control input-lg" maxLength={helloConfig.maxLengthName} placeholder="Be the last one, type your name..."
-              ref={i => this.helloNameInput = i}
-              value={this.state.newName}
-              onChange={this.handleNameChange} />
+          <input type="text" className="form-control input-lg" maxLength={helloConfig.maxLengthName}
+            ref={i => this.helloNameInput = i}
+            value={this.state.newName}
+            onChange={this.handleNameChange}
+            placeholder="Be the last one, type your name..." />
           {
             this.hasError('element_hello_name') && <label className="control-label helloworld__new-form--error-msg">{this.getErrorMessage('element_hello_name')}</label>
           }
@@ -89,22 +92,24 @@ class NewHelloWorldForm extends React.Component {
 // *** Hello World Table Row Component *** //
 
 function HelloWorldRow({ hello }) {
-  return <tr>
-    <td>{hello.id || ''}</td>
-    <td>{hello.name}</td>
-    <td>{hello.date}</td>
-  </tr>
+  return (
+    <tr>
+      <td>{hello.id || ''}</td>
+      <td>{hello.name}</td>
+      <td>{hello.date}</td>
+    </tr>
+  )
 }
 
 HelloWorldRow.propTypes = {
-  hello: PropTypes.shape(helloShape).isRequired
+  hello: PropTypes.shape(helloShape).isRequired,
 }
 
 
 // *** Hello World Table List Component *** //
 
 function HelloWorldTable({ helloList }) {
-  let helloRows = helloList.map(hello => {
+  let helloRows = helloList.map((hello) => {
     let rowId = hello.id || hello._id
     return <HelloWorldRow hello={hello} key={rowId} />
   })
@@ -163,8 +168,8 @@ export default HelloWorldComponent
 
 // For unit tests
 export const InternalComponents = {
-  LastHelloWorld: LastHelloWorld,
-  NewHelloWorldForm: NewHelloWorldForm,
-  HelloWorldRow: HelloWorldRow,
-  HelloWorldTable: HelloWorldTable
+  LastHelloWorld,
+  NewHelloWorldForm,
+  HelloWorldRow,
+  HelloWorldTable,
 }
