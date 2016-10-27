@@ -14,7 +14,7 @@ describe('hello world component', () => {
       expect(wrapper.find('div').hasClass('helloworld__last')).toBe(true)
       expect(wrapper.find('div').children().length).toBe(3)
       expect(wrapper.find('h1').text()).toBe('Last Hello')
-      expect(wrapper.find('p').length).toBe(2);
+      expect(wrapper.find('p').length).toBe(2)
     }
 
     it('render hello not provided yet', () => {
