@@ -10,7 +10,7 @@ const SERVER_PATH = path.resolve(__dirname, './server')
 const NODE_MODULE_PATH = path.resolve(__dirname, './node_modules')
 const PROD = process.env.NODE_ENV === 'production'
 
-let plugins = [
+const plugins = [
   new ExtractTextPlugin(PROD ? '[name].[contenthash].css' : '[name].css'),
   new HtmlWebpackPlugin({
     title: 'Basic React Project',
