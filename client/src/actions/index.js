@@ -1,3 +1,5 @@
+/* global window */
+
 import fetch from 'isomorphic-fetch'
 import { validateHelloObject } from 'server/validations'
 
@@ -7,8 +9,8 @@ export const ADD_HELLO = 'ADD_HELLO'
 export const ADD_HELLO_SUCCESS = 'ADD_HELLO_SUCCESS'
 export const ADD_HELLO_ERROR = 'ADD_HELLO_ERROR'
 
-const isNode = typeof module !== 'undefined' && module.exports
-const hellosApiURL = !isNode ? '/api/hellos' : 'http://localhost:3000/api/hellos'
+const inBrowser = (window.location.href !== 'about:blank')
+const hellosApiURL = inBrowser ? '/api/hellos' : 'http://localhost:3000/api/hellos'
 
 function requestHellos() {
   return {
@@ -59,7 +61,7 @@ export function fetchHellos() {
       .then(handleError)
       .then(resp => resp.json())
       .then(json => dispatch(receiveHellos(json)))
-      .catch(error => !isNode && console.log(error))
+      .catch(error => inBrowser && console.log(error))
   }
 }
 
