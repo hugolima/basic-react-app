@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { fetchHellos, addHello } from '../actions'
-import HelloWorldComponent from '../components/helloworld'
+import HelloWorld from '../components/HelloWorld'
 
 function mapStateToProps(state) {
   return { hellos: state.hello.items }
@@ -31,4 +31,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HelloWorldComponent)
+)(HelloWorld)

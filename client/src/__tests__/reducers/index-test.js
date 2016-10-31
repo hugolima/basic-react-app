@@ -54,7 +54,7 @@ describe('hello reducers', () => {
       hello: {
         isFetching: false,
         items: [
-          {id:0, _id:123, name:'Test 02', date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'},
+          {id:0, id_temp:123, name:'Test 02', date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'},
           {id:1, name:'Test 01', date:'Mon Oct 10 2016 00:00:00 GMT-0200 (BRST)'}
         ]
       }
@@ -65,13 +65,13 @@ describe('hello reducers', () => {
     expect(
       rootReducer(initialState, {
         type: ADD_HELLO,
-        hello: {id:0, _id:123, name:'Test 02', date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'}
+        hello: {id:0, id_temp:123, name:'Test 02', date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'}
       })
     ).toEqual(resultState)
   })
 
   it('should handle ADD_HELLO_SUCCESS', () => {
-    const helloAddedWithoutID = {id:0, _id:123, name:'Test 02', date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'}
+    const helloAddedWithoutID = {id:0, id_temp:123, name:'Test 02', date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'}
     const initialState = {
       hello: {
         isFetching: false,
@@ -86,7 +86,7 @@ describe('hello reducers', () => {
       hello: {
         isFetching: false,
         items: [
-          {id:2, _id:123, name:'Test 02', date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'},
+          {id:2, id_temp:123, name:'Test 02', date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'},
           {id:1, name:'Test 01', date:'Mon Oct 10 2016 00:00:00 GMT-0200 (BRST)'}
         ]
       }
@@ -104,7 +104,7 @@ describe('hello reducers', () => {
   })
 
   it('should handle ADD_HELLO_ERROR', () => {
-    const helloAdded = {id:0, _id:123, name:'Test 02', date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'}
+    const helloAdded = {id:0, id_temp:123, name:'Test 02', date:'Mon Oct 11 2016 00:00:00 GMT-0200 (BRST)'}
     const initialState = {
       hello: {
         isFetching: false,

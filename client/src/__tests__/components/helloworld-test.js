@@ -1,12 +1,10 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
-import HelloWorldComponent from '../../components/helloworld'
-import { InternalComponents } from '../../components/helloworld'
-
-const {
-  LastHelloWorld, NewHelloWorldForm,
-  HelloWorldRow, HelloWorldTable
-} = InternalComponents
+import HelloWorld from '../../components/HelloWorld'
+import LastHelloWorld from '../../components/HelloWorld/lasthelloworld'
+import NewHelloWorldForm from '../../components/HelloWorld/newhelloworldform'
+import HelloWorldRow from '../../components/HelloWorld/helloworldrow'
+import HelloWorldTable from '../../components/HelloWorld/helloworldtable'
 
 describe('hello world component', () => {
   describe('last hello', () => {
@@ -157,7 +155,7 @@ describe('hello world component', () => {
         helloList: [
           {
             id: 0,
-            _id: 5555,
+            id_temp: 5555,
             name:'Test 01',
             date:'Mon Oct 10 2016 00:00:00 GMT-0200 (BRST)'
           },
@@ -185,7 +183,7 @@ describe('hello world component', () => {
         handleNewHello: jest.fn(),
         hellos: []
       }
-      const wrapper = mount(<HelloWorldComponent {...props} />)
+      const wrapper = mount(<HelloWorld {...props} />)
 
       expect(props.fetchHelloList).toHaveBeenCalledTimes(1)
       expect(wrapper.props().hellos.length).toBe(0)
@@ -205,7 +203,7 @@ describe('hello world component', () => {
           }
         ]
       }
-      const wrapper = mount(<HelloWorldComponent {...props} />)
+      const wrapper = mount(<HelloWorld {...props} />)
 
       expect(props.fetchHelloList).toHaveBeenCalledTimes(1)
       expect(wrapper.props().hellos.length).toBe(1)
@@ -231,7 +229,7 @@ describe('hello world component', () => {
           }
         ]
       }
-      const wrapper = mount(<HelloWorldComponent {...props} />)
+      const wrapper = mount(<HelloWorld {...props} />)
 
       expect(props.fetchHelloList).toHaveBeenCalledTimes(1)
       expect(wrapper.props().hellos.length).toBe(2)
