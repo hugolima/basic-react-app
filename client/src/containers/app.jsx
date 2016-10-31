@@ -1,9 +1,6 @@
 import React from 'react'
-import 'jquery'
-import 'bootstrap-sass/assets/javascripts/bootstrap'
 import HelloWorldContainer from './helloworld'
 import imgGitLogo from '../images/GitHub_Logo.png'
-import '../stylesheets/base.scss'
 
 function App() {
   return (

@@ -3,7 +3,6 @@ import { helloShape } from './commons'
 import LastHelloWorld from './lasthelloworld'
 import NewHelloWorldForm from './newhelloworldform'
 import HelloWorldTable from './helloworldtable'
-import '../../stylesheets/modules/helloworld.scss'
 
 class HelloWorld extends React.Component {
   componentDidMount() {
