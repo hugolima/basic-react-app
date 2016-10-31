@@ -1,15 +1,11 @@
 {
   "extends": "airbnb",
-  "settings": {
-    "import/resolver": {
-      "webpack": {
-        "config": "webpack.config.js"
-      }
-    }
-  },
   "rules": {
     "semi": [0, "never"],
     "no-param-reassign": 0,
-    "no-unused-vars": [1, {"vars": "local", "args": "none"}]
+    "no-unused-vars": [1, {"vars": "local", "args": "none"}],
+    "import/no-extraneous-dependencies": [0, { }],
+    "import/no-unresolved": [0, { }],
+    "import/extensions": [0, { }]
   }
 }
