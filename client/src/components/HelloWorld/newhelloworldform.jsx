@@ -27,7 +27,7 @@ class NewHelloWorldForm extends React.Component {
   }
 
   handleNewHelloSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
     const newName = this.state.newName.trim()
 
     this.setState({ validationError: {}, newName: '' })
