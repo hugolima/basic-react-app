@@ -5,7 +5,7 @@
   "main": "./server/app.js",
   "homepage": "http://basic-react-app.herokuapp.com",
   "engines": {
-    "node": "6.0.0"
+    "node": "6.11.1"
   },
   "scripts": {
     "start-dev": "node ./server/app.js | webpack -d --watch",
